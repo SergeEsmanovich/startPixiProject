@@ -1,6 +1,6 @@
 {
   "name": "Runner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,12 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "es6-shim": "^0.35.3",
+    "pixi.js": "^4.6.2",
     "reflect-metadata": "^0.1.10",
-    "typedi": "^0.4.3",
-    "pixi.js": "^4.3.4"
+    "typedi": "^0.6.0"
   },
   "devDependencies": {
-    "@types/pixi.js": "^4.4.0",
+    "@types/pixi.js": "^4.6.1",
     "ts-loader": "^2.0.3",
     "typescript": "^2.3.2"
   }

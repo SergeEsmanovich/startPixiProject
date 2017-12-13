@@ -10,8 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "es6-shim": "^0.35.3",
+    "pixi-layers": "^0.1.4",
     "pixi.js": "^4.6.2",
     "reflect-metadata": "^0.1.10",
+    "stats.js": "^0.17.0",
     "typedi": "^0.6.0"
   },
   "devDependencies": {

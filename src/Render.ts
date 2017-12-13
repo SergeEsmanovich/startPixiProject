@@ -1,7 +1,9 @@
 /// <reference path="../node_modules/@types/pixi.js/index.d.ts" />
-import {Service} from "typedi";
-import {Sample} from "./entities/Sample";
-import {PlayerMovementSystem} from "./systems/PlayerMovementSystem";
+import {Service} from 'typedi';
+import {DefaultScene} from './scene/DefaultScene';
+import {FlashlightScene} from './scene/FlashlightScene';
+// import * from ''
+
 @Service()
 export class Render {
     public app: PIXI.Application;
@@ -12,7 +14,10 @@ export class Render {
     public entities: any = [];
     private systems: any = [];
 
+    public scene: DefaultScene;
+
     constructor() {
+        console.log('Render');
         PIXI.loader
             .add('sample', 'Assets/sample.png')
             .load(this.onLoaded.bind(this));
@@ -27,42 +32,48 @@ export class Render {
     }
 
     private resize() {
-        this.width = document.getElementById('wrapper').offsetWidth;
-        this.height = document.getElementById('wrapper').offsetHeight;
-        let that = this;
+        this.width      = document.getElementById('wrapper').offsetWidth;
+        this.height     = document.getElementById('wrapper').offsetHeight;
+        let that        = this;
         window.onresize = function (event) {
-            that.width = document.getElementById('wrapper').offsetWidth;
+            that.width  = document.getElementById('wrapper').offsetWidth;
             that.height = document.getElementById('wrapper').offsetHeight;
             that.app.renderer.resize(that.width, that.height);
         };
     }
 
     public update(delta: number) {
-        let that = this;
-        this.systems.forEach(function (system: any) {
-            system.update(delta);
-        });
+        if (this.scene) {
+            this.scene.update(delta);
+        }
     }
 
     public onLoaded(loader: any, res: any) {
         this.resize();
         this.app = new PIXI.Application(this.width, this.height, {
             backgroundColor: 0x1a6f1d,
-            antialias: true,
-            autoResize: true
+            antialias      : true,
+            autoResize     : true,
         }, false);
         document.getElementById('wrapper').appendChild(this.app.view);
+
+        // this.app.stage = new PIXI.display.Stage();
+
+        // var layer = new PIXI.display.Layer();
+        // console.log(PIXI.display);
+
         this.app.stop();
         this.resources = res;
 
-        let sample = new Sample();
-
-        let pl = new PlayerMovementSystem();
+        this.loadScene(new FlashlightScene());
 
         this.app.start();
-        let that = this;
-        this.app.ticker.add(function (delta: number) {
-            that.update(delta);
+        this.app.ticker.add((delta: number) => {
+            this.update(delta);
         });
+    }
+
+    loadScene(scene: any) {
+        this.scene = scene;
     }
 }

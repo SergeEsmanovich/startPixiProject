@@ -9,10 +9,42 @@ export class Flashlight {
     stop          = false;
     delta: number = null;
 
+    scale = 0.5;
+
+    block: any;
+
     constructor() {
         this.view.setPosition(100, 100);
-        this.view.serScale(0.5, 0.5);
+        this.view.setScale(this.scale, this.scale);
         // this.view.rotateTo(this.targetPoint);
+        setTimeout(() => {
+            this.test();
+        }, 1000)
+    }
+
+    setBlock(block) {
+        this.block = block;
+    }
+
+    test() {
+        let light = this.view.container.getChildAt(1);
+
+        light.moveTo(0, 0);
+
+        let block = this.block.view.container.getChildAt(0);
+
+        // let pos    = this.block.view.container.position;
+        // let width  = this.block.view.container.width;
+        // let height = this.block.view.container.height;
+
+        let data = block.getBounds();
+
+        light.lineTo(data.x, data.y);
+
+        console.log(data);
+        // light.clear();
+        console.log(block);
+        console.log(light);
     }
 
     getRandomPoint() {

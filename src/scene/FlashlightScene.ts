@@ -1,14 +1,18 @@
 import {NestedRender} from '../helpers/NestedRender';
 import {Render} from '../Render';
 import {Flashlight} from '../entities/Flashlight';
+import {Block} from '../entities/Block';
 
 @NestedRender
 export class FlashlightScene {
     render: Render;
-    entity: Flashlight;
+    fl: Flashlight;
+    block: Block;
 
     constructor() {
-        this.entity = new Flashlight();
+        this.fl    = new Flashlight();
+        this.block = new Block();
+        this.fl.setBlock(this.block);
 
         // let lighting:any = new PIXI.display.Layer();
         // lighting.on('display', function (element) {
@@ -23,6 +27,6 @@ export class FlashlightScene {
     }
 
     update(delta: number) {
-        this.entity.move(delta);
+        this.fl.move(delta);
     }
 }

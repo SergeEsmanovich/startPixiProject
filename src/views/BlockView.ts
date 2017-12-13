@@ -1,28 +1,24 @@
-import {Render} from '../Render';
 import {NestedRender} from '../helpers/NestedRender';
+import {Render} from '../Render';
 
 @NestedRender
-export class FlashlightView {
+export class BlockView {
     public render: Render;
     public container = new PIXI.Container();
 
     constructor() {
-        const image   = this.render.resources.sample;
-        const view    = PIXI.Sprite.from(image.data);
-        view.position = new PIXI.Point(0, 0);
-        view.anchor.set(0.5);
 
-        const light = new PIXI.Graphics();
-        // light.beginFill(0xFFFFFF,0.5);
-        light.lineStyle(5, 0x000000, 1);
-        light.moveTo(0, 0);
-        light.lineTo(-250, 600);
-        light.lineTo(250, 600);
-        light.lineTo(0, 0);
-        // light.endFill();
 
-        this.container.addChild(view);
-        this.container.addChild(light);
+        const block = new PIXI.Graphics();
+        block.beginFill(0xFFFFFF);
+        block.lineStyle(5, 0x000000, 1);
+        block.drawRect(0, 0, 120, 120);
+        block.endFill();
+
+        this.container.addChild(block);
+        this.container.pivot.x = this.container.width / 2;
+        this.container.pivot.y = this.container.height / 2;
+
         this.render.app.stage.addChild(this.container);
     }
 
